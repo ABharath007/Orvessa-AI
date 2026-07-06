@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+
 import {
   Home,
   Upload,
   Images,
+  FolderOpen,
   Palette,
   Wallet,
   Sofa,
@@ -30,6 +33,16 @@ const navigation = [
     icon: Images,
   },
   {
+    title: "Projects",
+    href: "/dashboard/projects",
+    icon: FolderOpen,
+  },
+  {
+    title: "Favorites",
+    href: "/dashboard/favorites",
+    icon: Heart,
+  },
+  {
     title: "Color Palette",
     href: "/dashboard/palette",
     icon: Palette,
@@ -45,11 +58,6 @@ const navigation = [
     icon: Sofa,
   },
   {
-    title: "Saved Designs",
-    href: "/dashboard/saved",
-    icon: Heart,
-  },
-  {
     title: "Profile",
     href: "/dashboard/profile",
     icon: User,
@@ -62,18 +70,30 @@ const navigation = [
 ];
 
 export function SidebarNav() {
+  const pathname = usePathname();
+
   return (
     <nav className="flex flex-1 flex-col gap-2 p-4">
       {navigation.map((item) => {
         const Icon = item.icon;
 
+        const isActive =
+          item.href === "/dashboard"
+            ? pathname === "/dashboard"
+            : pathname === item.href ||
+              pathname.startsWith(`${item.href}/`);
+
         return (
           <Link
             key={item.href}
             href={item.href}
-            className="flex items-center gap-3 rounded-xl px-4 py-3 transition hover:bg-slate-100"
+            className={`flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+              isActive
+                ? "bg-slate-900 text-white shadow-md"
+                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+            }`}
           >
-            <Icon className="h-5 w-5" />
+            <Icon className="h-5 w-5 flex-shrink-0" />
 
             <span>{item.title}</span>
           </Link>
