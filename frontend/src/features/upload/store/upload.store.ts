@@ -13,6 +13,8 @@ export interface UploadState {
 
   isGenerating: boolean;
 
+  generatedProjectId: number | null;
+
   setStep: (step: number) => void;
 
   nextStep: () => void;
@@ -21,13 +23,15 @@ export interface UploadState {
 
   setFile: (file: File | null) => void;
 
-  setRoomType: (room: string) => void;
+  setRoomType: (roomType: string) => void;
 
   setStyle: (style: string) => void;
 
   setColorPalette: (palette: string) => void;
 
   setGenerating: (value: boolean) => void;
+
+  setGeneratedProjectId: (id: number | null) => void;
 
   reset: () => void;
 }
@@ -44,6 +48,8 @@ export const useUploadStore = create<UploadState>((set) => ({
   colorPalette: null,
 
   isGenerating: false,
+
+  generatedProjectId: null,
 
   setStep: (step) =>
     set({
@@ -85,6 +91,11 @@ export const useUploadStore = create<UploadState>((set) => ({
       isGenerating: value,
     }),
 
+  setGeneratedProjectId: (id) =>
+    set({
+      generatedProjectId: id,
+    }),
+
   reset: () =>
     set({
       step: 1,
@@ -93,5 +104,6 @@ export const useUploadStore = create<UploadState>((set) => ({
       style: null,
       colorPalette: null,
       isGenerating: false,
+      generatedProjectId: null,
     }),
 }));

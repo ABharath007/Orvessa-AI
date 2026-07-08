@@ -17,7 +17,6 @@ import { RememberMe } from "./remember-me";
 import { AuthDivider } from "./auth-divider";
 import { SocialLogin } from "./social-login";
 
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 import {
@@ -41,11 +40,11 @@ export function LoginForm() {
   });
 
   const onSubmit = (values: LoginFormValues) => {
-  console.log("✅ onSubmit called");
-  console.log(values);
+    console.log("✅ Login Submitted");
+    console.log(values);
 
-  loginMutation.mutate(values);
-};
+    loginMutation.mutate(values);
+  };
 
   return (
     <AuthCard
@@ -67,6 +66,7 @@ export function LoginForm() {
 
                 <FormControl>
                   <Input
+                    type="email"
                     placeholder="Enter your email"
                     className="h-12"
                     {...field}
@@ -100,13 +100,15 @@ export function LoginForm() {
 
           <RememberMe />
 
-          <Button
+          <button
             type="submit"
-            className="h-12 w-full rounded-xl text-base font-semibold"
             disabled={loginMutation.isPending}
+            className="h-12 w-full rounded-xl bg-black text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {loginMutation.isPending ? "Signing In..." : "Login"}
-          </Button>
+            {loginMutation.isPending
+              ? "Signing In..."
+              : "Login"}
+          </button>
 
           <AuthDivider />
 

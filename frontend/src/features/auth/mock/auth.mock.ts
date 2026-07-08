@@ -12,11 +12,14 @@ export async function mockLogin(
 ): Promise<AuthResponse> {
   await delay(1000);
 
+  console.log("✅ LOGIN CALLED");
+  console.log(data);
+
   return {
     accessToken: "mock-access-token",
     refreshToken: "mock-refresh-token",
     user: {
-      id: "1",
+      id: Date.now().toString(),
       fullName: "Kiran",
       email: data.email,
     },
@@ -28,11 +31,14 @@ export async function mockRegister(
 ): Promise<AuthResponse> {
   await delay(1200);
 
+  console.log("✅ REGISTER CALLED");
+  console.log(data);
+
   return {
     accessToken: "mock-access-token",
     refreshToken: "mock-refresh-token",
     user: {
-      id: "2",
+      id: Date.now().toString(),
       fullName: data.fullName,
       email: data.email,
     },

@@ -1,9 +1,17 @@
 "use client";
 
 import { IndianRupee } from "lucide-react";
-import { mockCost } from "../mock/cost.mock";
 
-export function ProjectCost() {
+import { mockCost } from "../mock/cost.mock";
+import type { Project } from "../types/project.types";
+
+interface ProjectCostProps {
+  project: Project;
+}
+
+export function ProjectCost({
+  project,
+}: ProjectCostProps) {
   return (
     <section className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
       <h2 className="text-3xl font-bold">
@@ -11,7 +19,10 @@ export function ProjectCost() {
       </h2>
 
       <p className="mt-2 text-slate-500">
-        AI-estimated renovation budget.
+        AI-estimated renovation budget for{" "}
+        <span className="font-semibold">
+          {project.title}
+        </span>
       </p>
 
       <div className="mt-8 space-y-4">
@@ -43,4 +54,3 @@ export function ProjectCost() {
     </section>
   );
 }
-

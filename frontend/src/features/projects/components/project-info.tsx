@@ -7,18 +7,14 @@ import {
   Calendar,
 } from "lucide-react";
 
+import type { Project } from "../types/project.types";
+
 interface ProjectInfoProps {
-  roomType: string;
-  style: string;
-  colorPalette: string;
-  createdAt: string;
+  project: Project;
 }
 
 export function ProjectInfo({
-  roomType,
-  style,
-  colorPalette,
-  createdAt,
+  project,
 }: ProjectInfoProps) {
   return (
     <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
@@ -30,25 +26,25 @@ export function ProjectInfo({
         <InfoCard
           icon={<Home className="h-6 w-6" />}
           title="Room Type"
-          value={roomType}
+          value={project.roomType}
         />
 
         <InfoCard
           icon={<Sparkles className="h-6 w-6" />}
           title="Interior Style"
-          value={style}
+          value={project.style}
         />
 
         <InfoCard
           icon={<Palette className="h-6 w-6" />}
           title="Color Palette"
-          value={colorPalette}
+          value="Not Selected"
         />
 
         <InfoCard
           icon={<Calendar className="h-6 w-6" />}
           title="Created"
-          value={createdAt}
+          value={project.createdAt}
         />
       </div>
     </div>

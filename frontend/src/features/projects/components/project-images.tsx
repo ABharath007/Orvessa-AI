@@ -2,14 +2,14 @@
 
 import Image from "next/image";
 
+import type { Project } from "../types/project.types";
+
 interface ProjectImagesProps {
-  originalImage: string;
-  generatedImages: string[];
+  project: Project;
 }
 
 export function ProjectImages({
-  originalImage,
-  generatedImages,
+  project,
 }: ProjectImagesProps) {
   return (
     <div className="grid gap-8 lg:grid-cols-2">
@@ -21,8 +21,8 @@ export function ProjectImages({
 
         <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm">
           <Image
-            src={originalImage}
-            alt="Original Room"
+            src={project.thumbnail}
+            alt={project.title}
             width={1000}
             height={700}
             className="h-[420px] w-full object-cover"
@@ -37,14 +37,14 @@ export function ProjectImages({
         </h2>
 
         <div className="grid grid-cols-2 gap-4">
-          {generatedImages.map((image, index) => (
+          {[1, 2, 3, 4].map((item) => (
             <div
-              key={index}
+              key={item}
               className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
             >
               <Image
-                src={image}
-                alt={`Design ${index + 1}`}
+                src={project.thumbnail}
+                alt={`Generated Design ${item}`}
                 width={600}
                 height={500}
                 className="h-48 w-full object-cover transition duration-300 hover:scale-105"

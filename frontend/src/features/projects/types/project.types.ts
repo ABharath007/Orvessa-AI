@@ -1,10 +1,26 @@
+export type ProjectStatus =
+  | "Draft"
+  | "In Progress"
+  | "Completed";
+
 export interface Project {
-  id: number;
+  id: string;
+
   title: string;
+
   roomType: string;
+
   style: string;
-  colorPalette: string;
+
   thumbnail: string;
+
+  budget: number;
+
+  status: ProjectStatus;
+
   createdAt: string;
-  status: "Generating" | "Completed";
+
+  updatedAt: string;
+
+  isFavorite: boolean;
 }

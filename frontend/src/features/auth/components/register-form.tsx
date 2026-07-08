@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
@@ -8,6 +9,8 @@ import {
   registerSchema,
   type RegisterFormValues,
 } from "@/features/auth/schemas/register.schema";
+
+import { useRegister } from "@/features/auth/hooks/use-register";
 
 import { AuthCard } from "./auth-card";
 import { PasswordInput } from "./password-input";
@@ -28,6 +31,10 @@ import {
 } from "@/components/ui/form";
 
 export function RegisterForm() {
+  const router = useRouter();
+
+  const registerMutation = useRegister();
+
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
@@ -40,7 +47,19 @@ export function RegisterForm() {
   });
 
   const onSubmit = (values: RegisterFormValues) => {
+    console.log("✅ Register Submitted");
     console.log(values);
+
+    registerMutation.mutate(values, {
+      onSuccess: () => {
+        console.log("✅ Registration Successful");
+        router.push("/dashboard");
+      },
+      onError: (error) => {
+        console.error("❌ Registration Failed");
+        console.error(error);
+      },
+    });
   };
 
   return (
@@ -53,32 +72,31 @@ export function RegisterForm() {
           onSubmit={form.handleSubmit(onSubmit)}
           className="space-y-6"
         >
+          {/* Full Name */}
           <FormField
             control={form.control}
             name="fullName"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Full Name</FormLabel>
-
                 <FormControl>
                   <Input
                     placeholder="John Doe"
                     {...field}
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Email */}
           <FormField
             control={form.control}
             name="email"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Email</FormLabel>
-
                 <FormControl>
                   <Input
                     type="email"
@@ -86,50 +104,48 @@ export function RegisterForm() {
                     {...field}
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Password */}
           <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Password</FormLabel>
-
                 <FormControl>
                   <PasswordInput
                     placeholder="Password"
                     {...field}
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Confirm Password */}
           <FormField
             control={form.control}
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
                 <FormLabel>Confirm Password</FormLabel>
-
                 <FormControl>
                   <PasswordInput
                     placeholder="Confirm Password"
                     {...field}
                   />
                 </FormControl>
-
                 <FormMessage />
               </FormItem>
             )}
           />
 
+          {/* Accept Terms */}
           <FormField
             control={form.control}
             name="acceptTerms"
@@ -152,8 +168,11 @@ export function RegisterForm() {
           <Button
             type="submit"
             className="h-12 w-full"
+            disabled={registerMutation.isPending}
           >
-            Create Account
+            {registerMutation.isPending
+              ? "Creating Account..."
+              : "Create Account"}
           </Button>
 
           <AuthDivider />

@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Home,
   Images,
@@ -7,34 +9,45 @@ import {
 
 import { StatCard } from "./stat-card";
 
+import { useDashboard } from "../hooks/use-dashboard";
+
 export function StatsGrid() {
+  const {
+    totalProjects,
+    completedProjects,
+    favoriteProjects,
+    totalBudget,
+  } = useDashboard();
+
   return (
     <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-4">
       <StatCard
-        title="Rooms Designed"
-        value="12"
-        change="+12%"
+        title="Projects"
+        value={totalProjects.toString()}
+        change={`${completedProjects} Completed`}
         icon={<Home className="h-6 w-6" />}
       />
 
       <StatCard
-        title="AI Designs"
-        value="156"
-        change="+28%"
+        title="Completed"
+        value={completedProjects.toString()}
+        change={`of ${totalProjects}`}
         icon={<Images className="h-6 w-6" />}
       />
 
       <StatCard
-        title="Saved Designs"
-        value="24"
-        change="+9%"
+        title="Favorites"
+        value={favoriteProjects.toString()}
+        change="Saved Projects"
         icon={<Heart className="h-6 w-6" />}
       />
 
       <StatCard
-        title="Estimated Budget"
-        value="₹1.2L"
-        change="+18%"
+        title="Total Budget"
+        value={`₹${(
+          totalBudget / 100000
+        ).toFixed(1)}L`}
+        change="Estimated"
         icon={<Wallet className="h-6 w-6" />}
       />
     </div>

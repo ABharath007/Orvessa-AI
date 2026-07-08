@@ -22,18 +22,18 @@ export function ReviewGenerate() {
   const imageUrl = URL.createObjectURL(file);
 
   const handleGenerate = () => {
-    // Show Loading Screen
+    // Show Generating Screen
     setGenerating(true);
 
-    // Simulate AI Generation
+    // Simulate AI Processing
     setTimeout(() => {
       setGenerating(false);
 
       console.log("✅ AI Generation Completed!");
 
-      // Navigate to Gallery
-      router.push("/dashboard/gallery");
-    }, 5000);
+      // Navigate to AI Results Page
+      router.push("/dashboard/results");
+    }, 3000);
   };
 
   return (

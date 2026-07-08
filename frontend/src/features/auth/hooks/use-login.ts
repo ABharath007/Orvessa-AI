@@ -15,17 +15,31 @@ export function useLogin() {
     mutationFn: authService.login,
 
     onSuccess: (data) => {
+      console.log("✅ Login API Success");
+      console.log(data);
+
+      // Save user in Zustand
       login(
         data.user,
         data.accessToken,
         data.refreshToken
       );
 
-      router.push("/dashboard");
+      // Save cookie for middleware
+      document.cookie =
+        "orvessa-auth=true; path=/; SameSite=Lax";
+
+      console.log("✅ Auth Store Updated");
+      console.log("🍪 Auth Cookie Created");
+      console.log("➡️ Redirecting to /dashboard");
+
+      // Redirect to Dashboard
+      router.replace("/dashboard");
     },
 
     onError: (error) => {
-      console.error("Login failed:", error);
+      console.error("❌ Login Failed");
+      console.error(error);
     },
   });
 }
