@@ -1,19 +1,41 @@
 export interface GeneratedImage {
-  id: number;
+  id: string;
   image: string;
 }
 
-export interface Recommendation {
-  furniture: string[];
-  colorPalette: string[];
-  estimatedCost: number;
+export interface FurnitureRecommendation {
+  id: string;
+  name: string;
+  brand: string;
+  price: number;
+  image: string;
 }
 
-export interface ResultData {
-  id: number;
-  originalImage: string;
+export interface CostBreakdown {
+  category: string;
+  amount: number;
+}
+
+export interface AIResult {
+  id: string;
+
+  title: string;
+
   roomType: string;
+
   style: string;
+
+  colorPalette: string;
+
+  originalImage: string;
+
   generatedImages: GeneratedImage[];
-  recommendation: Recommendation;
+
+  furniture: FurnitureRecommendation[];
+
+  costBreakdown: CostBreakdown[];
+
+  totalCost: number;
+
+  createdAt: string;
 }

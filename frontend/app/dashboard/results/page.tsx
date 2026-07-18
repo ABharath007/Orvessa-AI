@@ -1,9 +1,9 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useState } from "react";
 
 import { useUploadStore } from "@/features/upload/store/upload.store";
-import { resultData } from "@/features/results/mock/results.mock";
+import { mockResult } from "@/features/results/mock/results.mock";
 
 import { ResultHeader } from "@/features/results/components/result-header";
 import { BeforeAfter } from "@/features/results/components/before-after";
@@ -19,40 +19,54 @@ export default function ResultsPage() {
     colorPalette,
   } = useUploadStore();
 
-  const uploadedImage = useMemo(() => {
-    if (!file) return resultData.originalImage;
+  const [uploadedImage, setUploadedImage] = useState(
+    mockResult.originalImage
+  );
 
-    return URL.createObjectURL(file);
+  useEffect(() => {
+    if (!file) {
+      setUploadedImage(mockResult.originalImage);
+      return;
+    }
+
+    const imageUrl = URL.createObjectURL(file);
+
+    setUploadedImage(imageUrl);
+
+    return () => {
+      URL.revokeObjectURL(imageUrl);
+    };
   }, [file]);
 
   return (
     <div className="mx-auto max-w-7xl space-y-10">
       <ResultHeader
-        roomType={roomType ?? resultData.roomType}
-        style={style ?? resultData.style}
+        roomType={roomType ?? mockResult.roomType}
+        style={style ?? mockResult.style}
       />
 
       <BeforeAfter
         original={uploadedImage}
-        generated={resultData.generatedImages[0].image}
+        generated={mockResult.generatedImages[0].image}
       />
 
       <ResultActions />
 
       <GeneratedGallery
-        images={resultData.generatedImages}
+        images={mockResult.generatedImages.map((image, index) => ({
+          ...image,
+          id: Number(image.id) || index + 1,
+        }))}
       />
 
       <RecommendationPanel
-        furniture={resultData.recommendation.furniture}
+        furniture={mockResult.furniture.map((item) => item.name)}
         colorPalette={
           colorPalette
             ? [colorPalette]
-            : resultData.recommendation.colorPalette
+            : [mockResult.colorPalette]
         }
-        estimatedCost={
-          resultData.recommendation.estimatedCost
-        }
+        estimatedCost={mockResult.totalCost}
       />
     </div>
   );

@@ -5,19 +5,38 @@ import { FurnitureToolbar } from "@/features/furniture/components/furniture-tool
 
 export default function FurniturePage() {
   return (
-    <div className="mx-auto max-w-7xl space-y-8">
+    <div className="mx-auto max-w-7xl space-y-10">
+      {/* Header */}
       <div>
-        <h1 className="text-4xl font-bold">
+        <h1
+          className="
+            text-4xl
+            font-bold
+            text-slate-900
+            dark:text-white
+          "
+        >
           Furniture
         </h1>
 
-        <p className="mt-2 text-slate-500">
-          Browse furniture recommendations for your interior designs.
+        <p
+          className="
+            mt-3
+            max-w-3xl
+            text-lg
+            text-slate-500
+            dark:text-slate-400
+          "
+        >
+          Browse AI-recommended furniture and decor to complete your
+          interior designs.
         </p>
       </div>
 
+      {/* Toolbar */}
       <FurnitureToolbar />
 
+      {/* Furniture Grid */}
       <FurnitureGrid />
     </div>
   );

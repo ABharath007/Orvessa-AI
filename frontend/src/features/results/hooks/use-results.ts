@@ -1,9 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { resultsService } from "../services/results.service";
+"use client";
+
+import { mockResult } from "../mock/results.mock";
 
 export function useResults() {
-  return useQuery({
-    queryKey: ["results"],
-    queryFn: () => resultsService.getResults(),
-  });
+  return {
+    data: mockResult,
+    isLoading: false,
+  };
 }

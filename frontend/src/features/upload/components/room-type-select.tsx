@@ -1,5 +1,11 @@
 "use client";
 
+import {
+  ArrowLeft,
+  ArrowRight,
+  Home,
+} from "lucide-react";
+
 import { roomTypes } from "../constants/room-types";
 import { useUploadStore } from "../store/upload.store";
 import { RoomTypeCard } from "./room-type-card";
@@ -13,19 +19,27 @@ export function RoomTypeSelect() {
   } = useUploadStore();
 
   return (
-    <div className="space-y-8">
-      {/* Heading */}
-      <div>
-        <h2 className="text-3xl font-bold">
-          Select Room Type
-        </h2>
+    <div className="space-y-10">
+      {/* Header */}
+      <div className="flex items-start gap-4">
+        <div className="rounded-2xl bg-indigo-100 p-3 dark:bg-indigo-900/30">
+          <Home className="h-7 w-7 text-indigo-600" />
+        </div>
 
-        <p className="mt-2 text-slate-500">
-          Help Orvessa AI understand the type of room you want to redesign.
-        </p>
+        <div>
+          <h2 className="text-3xl font-bold text-slate-900 dark:text-white">
+            Select Room Type
+          </h2>
+
+          <p className="mt-2 max-w-2xl text-slate-500 dark:text-slate-400">
+            Help Orvessa AI understand which room you want
+            to redesign. This allows the AI to generate
+            more accurate and realistic interior designs.
+          </p>
+        </div>
       </div>
 
-      {/* Room Type Cards */}
+      {/* Cards */}
       <div className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
         {roomTypes.map((room) => (
           <RoomTypeCard
@@ -39,21 +53,58 @@ export function RoomTypeSelect() {
         ))}
       </div>
 
-      {/* Navigation Buttons */}
-      <div className="flex items-center justify-between pt-4">
+      {/* Footer */}
+      <div className="flex flex-col gap-4 border-t border-slate-200 pt-6 dark:border-slate-700 sm:flex-row sm:items-center sm:justify-between">
         <button
           onClick={previousStep}
-          className="rounded-xl border border-slate-300 px-6 py-3 font-medium transition hover:bg-slate-100"
+          className="
+            flex
+            items-center
+            justify-center
+            gap-2
+            rounded-2xl
+            border
+            border-slate-300
+            bg-white
+            px-6
+            py-3
+            font-semibold
+            transition-all
+            hover:bg-slate-100
+            dark:border-slate-700
+            dark:bg-slate-900
+            dark:text-white
+            dark:hover:bg-slate-800
+          "
         >
-          ← Back
+          <ArrowLeft className="h-5 w-5" />
+          Back
         </button>
 
         <button
           onClick={nextStep}
           disabled={!roomType}
-          className="rounded-xl bg-slate-900 px-8 py-3 font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+          className="
+            flex
+            items-center
+            justify-center
+            gap-2
+            rounded-2xl
+            bg-indigo-600
+            px-8
+            py-3
+            font-semibold
+            text-white
+            transition-all
+            hover:bg-indigo-700
+            hover:shadow-lg
+            disabled:cursor-not-allowed
+            disabled:opacity-50
+          "
         >
-          Continue →
+          Continue
+
+          <ArrowRight className="h-5 w-5" />
         </button>
       </div>
     </div>

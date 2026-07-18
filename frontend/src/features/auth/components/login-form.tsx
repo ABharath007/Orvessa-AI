@@ -62,7 +62,9 @@ export function LoginForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-slate-700 dark:text-slate-300">
+                  Email
+                </FormLabel>
 
                 <FormControl>
                   <Input
@@ -84,7 +86,9 @@ export function LoginForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-slate-700 dark:text-slate-300">
+                  Password
+                </FormLabel>
 
                 <FormControl>
                   <PasswordInput
@@ -103,7 +107,20 @@ export function LoginForm() {
           <button
             type="submit"
             disabled={loginMutation.isPending}
-            className="h-12 w-full rounded-xl bg-black text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+            className="
+              h-12
+              w-full
+              rounded-xl
+              bg-indigo-600
+              font-semibold
+              text-white
+              transition-all
+              duration-300
+              hover:bg-indigo-700
+              hover:shadow-lg
+              disabled:cursor-not-allowed
+              disabled:opacity-60
+            "
           >
             {loginMutation.isPending
               ? "Signing In..."
@@ -114,11 +131,19 @@ export function LoginForm() {
 
           <SocialLogin />
 
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-slate-500 dark:text-slate-400">
             Don't have an account?{" "}
             <Link
               href="/auth/register"
-              className="font-semibold text-primary hover:underline"
+              className="
+                font-semibold
+                text-indigo-600
+                transition
+                hover:text-indigo-700
+                hover:underline
+                dark:text-indigo-400
+                dark:hover:text-indigo-300
+              "
             >
               Sign Up
             </Link>

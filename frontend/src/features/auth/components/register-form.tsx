@@ -47,18 +47,8 @@ export function RegisterForm() {
   });
 
   const onSubmit = (values: RegisterFormValues) => {
-    console.log("✅ Register Submitted");
-    console.log(values);
-
     registerMutation.mutate(values, {
-      onSuccess: () => {
-        console.log("✅ Registration Successful");
-        router.push("/dashboard");
-      },
-      onError: (error) => {
-        console.error("❌ Registration Failed");
-        console.error(error);
-      },
+      onSuccess: () => router.push("/dashboard"),
     });
   };
 
@@ -78,13 +68,17 @@ export function RegisterForm() {
             name="fullName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Full Name</FormLabel>
+                <FormLabel className="text-slate-700 dark:text-slate-300">
+                  Full Name
+                </FormLabel>
+
                 <FormControl>
                   <Input
                     placeholder="John Doe"
                     {...field}
                   />
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -96,7 +90,10 @@ export function RegisterForm() {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-slate-700 dark:text-slate-300">
+                  Email
+                </FormLabel>
+
                 <FormControl>
                   <Input
                     type="email"
@@ -104,6 +101,7 @@ export function RegisterForm() {
                     {...field}
                   />
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -115,13 +113,17 @@ export function RegisterForm() {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-slate-700 dark:text-slate-300">
+                  Password
+                </FormLabel>
+
                 <FormControl>
                   <PasswordInput
                     placeholder="Password"
                     {...field}
                   />
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
@@ -133,19 +135,23 @@ export function RegisterForm() {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel className="text-slate-700 dark:text-slate-300">
+                  Confirm Password
+                </FormLabel>
+
                 <FormControl>
                   <PasswordInput
                     placeholder="Confirm Password"
                     {...field}
                   />
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
           />
 
-          {/* Accept Terms */}
+          {/* Terms */}
           <FormField
             control={form.control}
             name="acceptTerms"
@@ -158,7 +164,7 @@ export function RegisterForm() {
                   />
                 </FormControl>
 
-                <FormLabel className="font-normal">
+                <FormLabel className="font-normal text-slate-600 dark:text-slate-300">
                   I agree to the Terms & Conditions
                 </FormLabel>
               </FormItem>
@@ -167,8 +173,17 @@ export function RegisterForm() {
 
           <Button
             type="submit"
-            className="h-12 w-full"
             disabled={registerMutation.isPending}
+            className="
+              h-12
+              w-full
+              bg-indigo-600
+              font-semibold
+              text-white
+              transition-all
+              hover:bg-indigo-700
+              hover:shadow-lg
+            "
           >
             {registerMutation.isPending
               ? "Creating Account..."
@@ -179,11 +194,16 @@ export function RegisterForm() {
 
           <SocialLogin />
 
-          <p className="text-center text-sm text-muted-foreground">
+          <p className="text-center text-sm text-slate-500 dark:text-slate-400">
             Already have an account?{" "}
             <Link
               href="/auth/login"
-              className="font-semibold text-primary hover:underline"
+              className="
+                font-semibold
+                text-indigo-600
+                hover:underline
+                dark:text-indigo-400
+              "
             >
               Login
             </Link>

@@ -16,52 +16,107 @@ export function ProfileStats() {
       title: "Projects",
       value: stats.projects,
       icon: FolderOpen,
-      color: "text-blue-600 bg-blue-100",
+      iconColor: "text-blue-600 dark:text-blue-400",
+      bgColor: "bg-blue-100 dark:bg-blue-900/30",
     },
     {
       title: "Favorites",
       value: stats.favorites,
       icon: Heart,
-      color: "text-red-600 bg-red-100",
+      iconColor: "text-red-600 dark:text-red-400",
+      bgColor: "bg-red-100 dark:bg-red-900/30",
     },
     {
       title: "AI Designs",
       value: stats.generatedDesigns,
       icon: Sparkles,
-      color: "text-indigo-600 bg-indigo-100",
+      iconColor: "text-indigo-600 dark:text-indigo-400",
+      bgColor: "bg-indigo-100 dark:bg-indigo-900/30",
     },
   ];
 
   return (
-    <div className="grid gap-6 md:grid-cols-3">
+    <section
+      className="
+        grid
+        gap-8
+        md:grid-cols-3
+      "
+    >
       {cards.map((card) => {
         const Icon = card.icon;
 
         return (
           <div
             key={card.title}
-            className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+            className="
+              group
+              rounded-3xl
+              border
+              border-slate-200
+              bg-white
+              p-6
+              shadow-sm
+              transition-all
+              duration-300
+              hover:-translate-y-2
+              hover:border-indigo-300
+              hover:shadow-2xl
+              dark:border-slate-700
+              dark:bg-slate-900
+              dark:hover:border-indigo-500
+            "
           >
             <div className="flex items-center justify-between">
+              {/* Left */}
               <div>
-                <p className="text-sm text-slate-500">
+                <p
+                  className="
+                    text-sm
+                    font-medium
+                    text-slate-500
+                    dark:text-slate-400
+                  "
+                >
                   {card.title}
                 </p>
 
-                <h3 className="mt-2 text-3xl font-bold">
+                <h3
+                  className="
+                    mt-3
+                    text-4xl
+                    font-bold
+                    text-slate-900
+                    dark:text-white
+                  "
+                >
                   {card.value}
                 </h3>
               </div>
 
+              {/* Icon */}
               <div
-                className={`rounded-xl p-3 ${card.color}`}
+                className={`
+                  flex
+                  h-16
+                  w-16
+                  items-center
+                  justify-center
+                  rounded-2xl
+                  transition-all
+                  duration-300
+                  group-hover:scale-110
+                  ${card.bgColor}
+                `}
               >
-                <Icon className="h-6 w-6" />
+                <Icon
+                  className={`h-7 w-7 ${card.iconColor}`}
+                />
               </div>
             </div>
           </div>
         );
       })}
-    </div>
+    </section>
   );
 }

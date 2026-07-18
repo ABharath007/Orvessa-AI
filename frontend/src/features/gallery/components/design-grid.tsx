@@ -5,7 +5,19 @@ import { DesignCard } from "./design-card";
 
 export function DesignGrid() {
   return (
-    <div className="grid gap-8 md:grid-cols-2 xl:grid-cols-2">
+    <section
+      className="
+        grid
+        gap-8
+        sm:grid-cols-1
+        md:grid-cols-2
+        xl:grid-cols-2
+        2xl:grid-cols-3
+        animate-in
+        fade-in
+        duration-500
+      "
+    >
       {mockDesigns.map((design) => (
         <DesignCard
           key={design.id}
@@ -15,6 +27,6 @@ export function DesignGrid() {
           roomType={design.roomType}
         />
       ))}
-    </div>
+    </section>
   );
 }

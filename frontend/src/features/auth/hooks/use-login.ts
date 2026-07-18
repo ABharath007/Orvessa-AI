@@ -5,35 +5,52 @@ import { useMutation } from "@tanstack/react-query";
 
 import { authService } from "../services/auth.service";
 import { useAuthStore } from "../store/auth.store";
+import { useProfileStore } from "@/features/profile/store/profile.store";
 
 export function useLogin() {
   const router = useRouter();
 
-  const login = useAuthStore((state) => state.login);
+  const login = useAuthStore(
+    (state) => state.login
+  );
+
+  const initializeProfile =
+    useProfileStore(
+      (state) => state.initializeProfile
+    );
 
   return useMutation({
     mutationFn: authService.login,
 
     onSuccess: (data) => {
-      console.log("✅ Login API Success");
+      console.log("✅ Login Successful");
       console.log(data);
 
-      // Save user in Zustand
+      // Save authenticated user
       login(
         data.user,
         data.accessToken,
         data.refreshToken
       );
 
-      // Save cookie for middleware
+      // Initialize Profile Store
+      if (data.user) {
+        initializeProfile(
+          data.user.fullName,
+          data.user.email
+        );
+      }
+
+      // Create authentication cookie
       document.cookie =
         "orvessa-auth=true; path=/; SameSite=Lax";
 
       console.log("✅ Auth Store Updated");
-      console.log("🍪 Auth Cookie Created");
-      console.log("➡️ Redirecting to /dashboard");
+      console.log("✅ Profile Store Updated");
+      console.log("🍪 Authentication Cookie Created");
+      console.log("➡️ Redirecting to Dashboard...");
 
-      // Redirect to Dashboard
+      // Navigate to dashboard
       router.replace("/dashboard");
     },
 

@@ -18,7 +18,21 @@ export function Notifications() {
       {/* Notification Bell */}
       <button
         onClick={() => setOpen(!open)}
-        className="relative rounded-xl border border-slate-200 bg-white p-2 transition hover:bg-slate-100"
+        className="
+          relative
+          rounded-xl
+          border
+          border-slate-200
+          bg-white
+          p-2
+          transition-all
+          duration-300
+          hover:bg-slate-100
+          dark:border-slate-700
+          dark:bg-slate-800
+          dark:text-white
+          dark:hover:bg-slate-700
+        "
       >
         <Bell className="h-5 w-5" />
 
@@ -31,17 +45,56 @@ export function Notifications() {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute right-0 mt-3 w-96 overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-2xl">
+        <div
+          className="
+            absolute
+            right-0
+            mt-3
+            w-96
+            overflow-hidden
+            rounded-2xl
+            border
+            border-slate-200
+            bg-white
+            shadow-2xl
+            transition-colors
+            duration-300
+            dark:border-slate-700
+            dark:bg-slate-900
+          "
+        >
           {/* Header */}
-          <div className="flex items-center justify-between border-b border-slate-200 p-4">
-            <h2 className="text-lg font-bold">
+          <div
+            className="
+              flex
+              items-center
+              justify-between
+              border-b
+              border-slate-200
+              p-4
+              dark:border-slate-700
+            "
+          >
+            <h2 className="text-lg font-bold dark:text-white">
               Notifications
             </h2>
 
             {notifications.length > 0 && (
               <button
                 onClick={clearNotifications}
-                className="flex items-center gap-1 rounded-lg px-3 py-2 text-sm text-red-600 transition hover:bg-red-50"
+                className="
+                  flex
+                  items-center
+                  gap-1
+                  rounded-lg
+                  px-3
+                  py-2
+                  text-sm
+                  text-red-600
+                  transition
+                  hover:bg-red-50
+                  dark:hover:bg-red-900/30
+                "
               >
                 <Trash2 className="h-4 w-4" />
                 Clear
@@ -49,17 +102,17 @@ export function Notifications() {
             )}
           </div>
 
-          {/* Notifications */}
+          {/* Notification List */}
           <div className="max-h-96 overflow-y-auto">
             {notifications.length === 0 ? (
-              <div className="p-8 text-center text-slate-500">
-                <Bell className="mx-auto mb-3 h-10 w-10 text-slate-300" />
+              <div className="p-8 text-center">
+                <Bell className="mx-auto mb-3 h-10 w-10 text-slate-300 dark:text-slate-600" />
 
-                <p className="font-medium">
+                <p className="font-medium text-slate-700 dark:text-white">
                   No notifications yet
                 </p>
 
-                <p className="mt-1 text-sm">
+                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                   Create or update a project to see activity.
                 </p>
               </div>
@@ -67,17 +120,25 @@ export function Notifications() {
               notifications.map((notification) => (
                 <div
                   key={notification.id}
-                  className="border-b border-slate-100 p-4 transition hover:bg-slate-50"
+                  className="
+                    border-b
+                    border-slate-100
+                    p-4
+                    transition
+                    hover:bg-slate-50
+                    dark:border-slate-800
+                    dark:hover:bg-slate-800
+                  "
                 >
-                  <h3 className="font-semibold">
+                  <h3 className="font-semibold text-slate-900 dark:text-white">
                     {notification.title}
                   </h3>
 
-                  <p className="mt-1 text-sm text-slate-500">
+                  <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
                     {notification.description}
                   </p>
 
-                  <p className="mt-2 text-xs text-slate-400">
+                  <p className="mt-2 text-xs text-slate-400 dark:text-slate-500">
                     {notification.createdAt}
                   </p>
                 </div>

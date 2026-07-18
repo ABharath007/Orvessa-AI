@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   EllipsisVertical,
   Pencil,
@@ -28,6 +28,8 @@ export function ProjectActions({
   const [open, setOpen] = useState(false);
   const [renameOpen, setRenameOpen] = useState(false);
 
+  const menuRef = useRef<HTMLDivElement>(null);
+
   const removeProject = useProjectStore(
     (state) => state.removeProject
   );
@@ -41,21 +43,68 @@ export function ProjectActions({
   );
 
   const duplicateProject = useProjectStore(
-  (state) => state.duplicateProject
-);
+    (state) => state.duplicateProject
+  );
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node)
+      ) {
+        setOpen(false);
+      }
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () =>
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside
+      );
+  }, []);
 
   return (
     <>
-      <div className="relative">
+      <div className="relative" ref={menuRef}>
         <button
           onClick={() => setOpen(!open)}
-          className="rounded-lg p-2 transition hover:bg-slate-100"
+          className="
+            rounded-xl
+            bg-white/90
+            p-2
+            shadow-md
+            backdrop-blur
+            transition-all
+            hover:scale-105
+            hover:bg-white
+            dark:bg-slate-900/80
+            dark:text-white
+            dark:hover:bg-slate-800
+          "
         >
           <EllipsisVertical className="h-5 w-5" />
         </button>
 
         {open && (
-          <div className="absolute right-0 top-12 z-50 w-56 rounded-2xl border border-slate-200 bg-white p-2 shadow-xl">
+          <div
+            className="
+              absolute
+              right-0
+              top-12
+              z-50
+              w-60
+              rounded-2xl
+              border
+              border-slate-200
+              bg-white
+              p-2
+              shadow-2xl
+              dark:border-slate-700
+              dark:bg-slate-900
+            "
+          >
             <MenuItem
               icon={<Pencil className="h-4 w-4" />}
               label="Rename"
@@ -66,7 +115,15 @@ export function ProjectActions({
             />
 
             <MenuItem
-              icon={<Heart className="h-4 w-4" />}
+              icon={
+                <Heart
+                  className={`h-4 w-4 ${
+                    isFavorite
+                      ? "fill-red-500 text-red-500"
+                      : ""
+                  }`}
+                />
+              }
               label={
                 isFavorite
                   ? "Remove Favorite"
@@ -88,58 +145,58 @@ export function ProjectActions({
             />
 
             <MenuItem
-  icon={<Share2 className="h-4 w-4" />}
-  label="Share"
-  onClick={async () => {
-    try {
-      const url = `${window.location.origin}/dashboard/projects/${projectId}`;
+              icon={<Share2 className="h-4 w-4" />}
+              label="Share"
+              onClick={async () => {
+                try {
+                  const url = `${window.location.origin}/dashboard/projects/${projectId}`;
 
-      await navigator.clipboard.writeText(url);
+                  await navigator.clipboard.writeText(url);
 
-      alert("✅ Project link copied to clipboard!");
-    } catch (error) {
-      console.error(error);
-      alert("Unable to copy link.");
-    }
+                  alert("✅ Project link copied!");
+                } catch {
+                  alert("Unable to copy link.");
+                }
 
-    setOpen(false);
-  }}
-/>
+                setOpen(false);
+              }}
+            />
 
             <MenuItem
-  icon={<Download className="h-4 w-4" />}
-  label="Download"
-  onClick={() => {
-    const data = JSON.stringify(
-      {
-        id: projectId,
-        exportedAt: new Date().toISOString(),
-      },
-      null,
-      2
-    );
+              icon={<Download className="h-4 w-4" />}
+              label="Download"
+              onClick={() => {
+                const data = JSON.stringify(
+                  {
+                    id: projectId,
+                    exportedAt:
+                      new Date().toISOString(),
+                  },
+                  null,
+                  2
+                );
 
-    const blob = new Blob([data], {
-      type: "application/json",
-    });
+                const blob = new Blob([data], {
+                  type: "application/json",
+                });
 
-    const url = URL.createObjectURL(blob);
+                const url =
+                  URL.createObjectURL(blob);
 
-    const a = document.createElement("a");
+                const a =
+                  document.createElement("a");
 
-    a.href = url;
+                a.href = url;
+                a.download = `project-${projectId}.json`;
+                a.click();
 
-    a.download = `project-${projectId}.json`;
+                URL.revokeObjectURL(url);
 
-    a.click();
+                setOpen(false);
+              }}
+            />
 
-    URL.revokeObjectURL(url);
-
-    setOpen(false);
-  }}
-/>
-
-            <div className="my-2 border-t" />
+            <div className="my-2 border-t border-slate-200 dark:border-slate-700" />
 
             <MenuItem
               danger
@@ -147,7 +204,9 @@ export function ProjectActions({
               label="Delete"
               onClick={() => {
                 if (
-                  confirm("Delete this project?")
+                  confirm(
+                    "Delete this project permanently?"
+                  )
                 ) {
                   removeProject(projectId);
                 }
@@ -187,15 +246,29 @@ function MenuItem({
   return (
     <button
       onClick={onClick}
-      className={`flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition ${
-        danger
-          ? "text-red-600 hover:bg-red-50"
-          : "hover:bg-slate-100"
-      }`}
+      className={`
+        flex
+        w-full
+        items-center
+        gap-3
+        rounded-xl
+        px-4
+        py-3
+        text-left
+        transition-all
+        duration-200
+        ${
+          danger
+            ? "text-red-600 hover:bg-red-50 dark:hover:bg-red-900/30"
+            : "hover:bg-slate-100 dark:text-white dark:hover:bg-slate-800"
+        }
+      `}
     >
       {icon}
 
-      <span>{label}</span>
+      <span className="font-medium">
+        {label}
+      </span>
     </button>
   );
 }

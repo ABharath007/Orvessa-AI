@@ -87,13 +87,19 @@ export function SidebarNav() {
           <Link
             key={item.href}
             href={item.href}
-            className={`flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all duration-200 ${
+            className={`group flex items-center gap-3 rounded-xl px-4 py-3 font-medium transition-all duration-300 ${
               isActive
-                ? "bg-slate-900 text-white shadow-md"
-                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900"
+                ? "bg-slate-900 text-white shadow-md dark:bg-indigo-600"
+                : "text-slate-600 hover:bg-slate-100 hover:text-slate-900 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-white"
             }`}
           >
-            <Icon className="h-5 w-5 flex-shrink-0" />
+            <Icon
+              className={`h-5 w-5 flex-shrink-0 transition-colors ${
+                isActive
+                  ? "text-white"
+                  : "text-slate-500 group-hover:text-slate-900 dark:text-slate-400 dark:group-hover:text-white"
+              }`}
+            />
 
             <span>{item.title}</span>
           </Link>
