@@ -74,7 +74,7 @@ export function RegisterForm() {
 
                 <FormControl>
                   <Input
-                    placeholder="John Doe"
+                    placeholder="Full Name"
                     {...field}
                   />
                 </FormControl>
@@ -97,7 +97,7 @@ export function RegisterForm() {
                 <FormControl>
                   <Input
                     type="email"
-                    placeholder="john@example.com"
+                    placeholder="example@email.com"
                     {...field}
                   />
                 </FormControl>

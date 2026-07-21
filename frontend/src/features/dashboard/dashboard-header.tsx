@@ -11,7 +11,7 @@ export function DashboardHeader() {
     <header className="sticky top-0 z-30 flex items-center justify-between border-b border-slate-200 bg-white px-8 py-5">
       {/* Left */}
       <div className="flex-1">
-        <SearchBar />
+        <SearchBar />\
       </div>
 
       {/* Right */}

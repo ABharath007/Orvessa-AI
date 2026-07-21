@@ -1,3 +1,5 @@
+import Link from "next/dist/client/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
 
 interface AuthLayoutProps {
@@ -8,7 +10,49 @@ export default function AuthLayout({
   children,
 }: AuthLayoutProps) {
   return (
-    <main className="grid min-h-screen lg:grid-cols-2">
+    <main className="relative grid min-h-screen lg:grid-cols-2">
+      {/* Logo */}
+
+<Link
+  href="/"
+  className="
+    absolute
+    left-10
+    top-10
+    z-50
+    flex
+    items-center
+    gap-3
+    transition-all
+    duration-300
+    hover:scale-105
+  "
+>
+  <Image
+    src="/logo/orvessa-icon.png"
+    alt="Orvessa AI"
+    width={56}
+    height={56}
+    priority
+    className="
+      h-14
+      w-14
+      rounded-2xl
+      object-cover
+      shadow-xl
+    "
+  />
+
+  <div>
+    <h2 className="text-2xl font-bold text-white">
+      Orvessa AI
+    </h2>
+
+    <p className="text-sm text-slate-400">
+      Interior Intelligence
+    </p>
+  </div>
+</Link>
       {/* Left Side */}
       <section className="hidden bg-slate-950 text-white lg:flex items-center justify-center p-20">
         <div className="max-w-xl">

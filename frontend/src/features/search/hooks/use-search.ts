@@ -1,9 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import { searchService } from "../services/search.service";
+import { useMemo } from "react";
 
-export function useSearch() {
-  return useQuery({
-    queryKey: ["search"],
-    queryFn: () => searchService.search(),
-  });
+import { searchItems } from "../services/search.service";
+
+export function useSearch(query: string) {
+  return useMemo(() => {
+    return searchItems(query);
+  }, [query]);
 }

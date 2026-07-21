@@ -30,7 +30,6 @@ export default function DashboardLayout({
         </main>
 
         {/* Global Command Palette */}
-        <CommandPalette />
       </div>
     </div>
   );

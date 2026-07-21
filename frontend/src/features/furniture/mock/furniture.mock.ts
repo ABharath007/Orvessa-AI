@@ -1,7 +1,5 @@
 import type { Furniture } from "../types/furniture.types";
 
-
-
 export const furnitureData: Furniture[] = [
   {
     id: 1,

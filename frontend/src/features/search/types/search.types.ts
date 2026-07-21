@@ -1,11 +1,36 @@
+import type { LucideIcon } from "lucide-react";
+
 export interface SearchItem {
   id: number;
+
   title: string;
+
   description: string;
+
   href: string;
-  category:
-    | "Project"
+
+  group:
+    | "Dashboard"
+    | "Upload"
     | "Gallery"
+    | "Projects"
     | "Furniture"
-    | "Palette";
+    | "Profile"
+    | "Settings"
+    | "Actions";
+
+  type:
+    | "page"
+    | "section"
+    | "action"
+    | "setting"
+    | "button";
+
+  icon: LucideIcon;
+
+  keywords: string[];
+
+  priority?: number;
+
+  section?: string;
 }

@@ -1,0 +1,172 @@
+import {
+  Upload,
+  ImagePlus,
+  Camera,
+  Wand2,
+  Home,
+  Bed,
+  ChefHat,
+  Building2,
+  FileImage,
+} from "lucide-react";
+
+import type { SearchItem } from "../types/search.types";
+
+export const uploadSearchData: SearchItem[] = [
+  {
+    id: 301,
+    title: "Upload Room",
+    description: "Upload a room image",
+    href: "/dashboard/upload",
+    icon: Upload,
+    group: "Upload",
+    type: "page",
+    keywords: [
+      "upload",
+      "room",
+      "image",
+      "photo",
+      "ai",
+      "design",
+    ],
+    priority: 100,
+  },
+
+  {
+    id: 302,
+    title: "Upload Image",
+    description: "Choose an image from your device",
+    href: "/dashboard/upload#image",
+    icon: ImagePlus,
+    group: "Upload",
+    type: "button",
+    section: "Upload",
+    keywords: [
+      "upload",
+      "image",
+      "photo",
+      "browse",
+      "file",
+    ],
+    priority: 95,
+  },
+
+  {
+    id: 303,
+    title: "Camera",
+    description: "Capture a room photo",
+    href: "/dashboard/upload#camera",
+    icon: Camera,
+    group: "Upload",
+    type: "button",
+    section: "Camera",
+    keywords: [
+      "camera",
+      "capture",
+      "photo",
+      "take picture",
+    ],
+    priority: 90,
+  },
+
+  {
+    id: 304,
+    title: "Generate AI Design",
+    description: "Generate interior using AI",
+    href: "/dashboard/upload#generate",
+    icon: Wand2,
+    group: "Upload",
+    type: "action",
+    section: "AI",
+    keywords: [
+      "generate",
+      "ai",
+      "design",
+      "create",
+      "render",
+    ],
+    priority: 100,
+  },
+
+  {
+    id: 305,
+    title: "Living Room",
+    description: "Living room template",
+    href: "/dashboard/upload#living-room",
+    icon: Home,
+    group: "Upload",
+    type: "section",
+    keywords: [
+      "living room",
+      "hall",
+      "family room",
+    ],
+    priority: 85,
+  },
+
+  {
+    id: 306,
+    title: "Bedroom",
+    description: "Bedroom template",
+    href: "/dashboard/upload#bedroom",
+    icon: Bed,
+    group: "Upload",
+    type: "section",
+    keywords: [
+      "bedroom",
+      "sleeping room",
+      "bed",
+    ],
+    priority: 85,
+  },
+
+  {
+    id: 307,
+    title: "Kitchen",
+    description: "Kitchen template",
+    href: "/dashboard/upload#kitchen",
+    icon: ChefHat,
+    group: "Upload",
+    type: "section",
+    keywords: [
+      "kitchen",
+      "cooking",
+      "chef",
+    ],
+    priority: 80,
+  },
+
+  {
+    id: 308,
+    title: "Office",
+    description: "Office template",
+    href: "/dashboard/upload#office",
+    icon: Building2,
+    group: "Upload",
+    type: "section",
+    keywords: [
+      "office",
+      "workspace",
+      "work",
+    ],
+    priority: 80,
+  },
+
+  {
+    id: 309,
+    title: "Supported Formats",
+    description: "PNG, JPG and JPEG images",
+    href: "/dashboard/upload#formats",
+    icon: FileImage,
+    group: "Upload",
+    type: "section",
+    keywords: [
+      "png",
+      "jpg",
+      "jpeg",
+      "format",
+      "image",
+    ],
+    priority: 70,
+  },
+];

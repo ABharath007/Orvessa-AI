@@ -4,9 +4,15 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 
 import { SearchDialog } from "./search-dialog";
+import { useCommandPalette } from "../hooks/use-command-palette";
 
 export function SearchBar() {
   const [open, setOpen] = useState(false);
+
+  // Only handles the Escape key
+  useCommandPalette({
+    onClose: () => setOpen(false),
+  });
 
   return (
     <>
@@ -20,7 +26,6 @@ export function SearchBar() {
           w-full
           max-w-xl
           items-center
-          justify-between
           rounded-2xl
           border
           border-slate-200
@@ -36,51 +41,28 @@ export function SearchBar() {
           dark:hover:border-indigo-500
         "
       >
-        <div className="flex items-center gap-3">
-          <Search
-            className="
-              h-5
-              w-5
-              text-slate-400
-              transition-colors
-              group-hover:text-indigo-600
-              dark:text-slate-500
-              dark:group-hover:text-indigo-400
-            "
-          />
-
-          <span
-            className="
-              text-sm
-              text-slate-500
-              dark:text-slate-400
-            "
-          >
-            Search projects, furniture, gallery...
-          </span>
-        </div>
-
-        <div
+        <Search
           className="
-            flex
-            items-center
-            gap-1
-            rounded-lg
-            border
-            border-slate-200
-            bg-slate-100
-            px-2.5
-            py-1
-            text-xs
-            font-medium
+            mr-3
+            h-5
+            w-5
+            text-slate-400
+            transition-colors
+            group-hover:text-indigo-600
+            dark:text-slate-500
+            dark:group-hover:text-indigo-400
+          "
+        />
+
+        <span
+          className="
+            text-sm
             text-slate-500
-            dark:border-slate-700
-            dark:bg-slate-800
             dark:text-slate-400
           "
         >
-          ⌘ K
-        </div>
+          Search projects, furniture, gallery...
+        </span>
       </button>
 
       <SearchDialog

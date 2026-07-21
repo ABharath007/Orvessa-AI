@@ -40,9 +40,7 @@ export function LoginForm() {
   });
 
   const onSubmit = (values: LoginFormValues) => {
-    console.log("✅ Login Submitted");
     console.log(values);
-
     loginMutation.mutate(values);
   };
 
@@ -103,6 +101,22 @@ export function LoginForm() {
           />
 
           <RememberMe />
+
+          <Link
+  href="/auth/forgot-password"
+  className="
+    text-sm
+    font-medium
+    text-indigo-600
+    transition
+    hover:text-indigo-700
+    hover:underline
+    dark:text-indigo-400
+    dark:hover:text-indigo-300
+  "
+>
+  Forgot Password?
+</Link>
 
           <button
             type="submit"
