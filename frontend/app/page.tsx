@@ -17,20 +17,8 @@ export default function HomePage() {
 
       <Hero />
 
-      <TrustedBy />
-
       <Features />
-
-      <AIShowcase />
-
-      <FurnitureShowcase />
-
-      <HowItWorks />
-
-      <Testimonials />
-
-      <PricingPreview />
-
+      
       <FAQPreview />
 
       <Footer />

@@ -16,8 +16,8 @@ import {
 import { useDashboard } from "../hooks/use-dashboard";
 
 const COLORS = [
-  "#0f172a",
-  "#2563eb",
+  "#6366f1",
+  "#3b82f6",
   "#10b981",
   "#f59e0b",
 ];
@@ -25,7 +25,6 @@ const COLORS = [
 export function AnalyticsChart() {
   const { projects } = useDashboard();
 
-  // Room Type Distribution
   const roomMap = new Map<string, number>();
 
   projects.forEach((project) => {
@@ -42,15 +41,15 @@ export function AnalyticsChart() {
     })
   );
 
-  // Monthly Project Creation
   const monthMap = new Map<string, number>();
 
   projects.forEach((project) => {
-    const month = new Date(
-      project.createdAt
-    ).toLocaleString("default", {
-      month: "short",
-    });
+    const month = new Date(project.createdAt).toLocaleString(
+      "default",
+      {
+        month: "short",
+      }
+    );
 
     monthMap.set(
       month,
@@ -68,34 +67,52 @@ export function AnalyticsChart() {
   return (
     <div className="grid gap-6 lg:grid-cols-3">
       {/* Line Chart */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
-        <h2 className="text-2xl font-bold">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 lg:col-span-2">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
           Project Growth
         </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Projects created over time
         </p>
 
         <div className="mt-6 h-80">
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-          >
+          <ResponsiveContainer width="100%" height="100%">
             <LineChart data={chartData}>
-              <CartesianGrid strokeDasharray="4 4" />
+              <CartesianGrid
+                strokeDasharray="4 4"
+                stroke="#334155"
+              />
 
-              <XAxis dataKey="month" />
+              <XAxis
+                dataKey="month"
+                stroke="#94a3b8"
+                tick={{ fill: "#94a3b8" }}
+              />
 
-              <YAxis />
+              <YAxis
+                stroke="#94a3b8"
+                tick={{ fill: "#94a3b8" }}
+              />
 
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#0f172a",
+                  border: "1px solid #334155",
+                  borderRadius: "12px",
+                  color: "#fff",
+                }}
+              />
 
               <Line
                 type="monotone"
                 dataKey="projects"
-                stroke="#0f172a"
+                stroke="#6366f1"
                 strokeWidth={3}
+                dot={{
+                  fill: "#6366f1",
+                  r: 5,
+                }}
               />
             </LineChart>
           </ResponsiveContainer>
@@ -103,20 +120,17 @@ export function AnalyticsChart() {
       </div>
 
       {/* Pie Chart */}
-      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-        <h2 className="text-2xl font-bold">
+      <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-white">
           Room Types
         </h2>
 
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
           Distribution of projects
         </p>
 
         <div className="mt-6 h-80">
-          <ResponsiveContainer
-            width="100%"
-            height="100%"
-          >
+          <ResponsiveContainer width="100%" height="100%">
             <PieChart>
               <Pie
                 data={roomData}
@@ -128,16 +142,19 @@ export function AnalyticsChart() {
                 {roomData.map((_, index) => (
                   <Cell
                     key={index}
-                    fill={
-                      COLORS[
-                        index % COLORS.length
-                      ]
-                    }
+                    fill={COLORS[index % COLORS.length]}
                   />
                 ))}
               </Pie>
 
-              <Tooltip />
+              <Tooltip
+                contentStyle={{
+                  backgroundColor: "#0f172a",
+                  border: "1px solid #334155",
+                  borderRadius: "12px",
+                  color: "#fff",
+                }}
+              />
             </PieChart>
           </ResponsiveContainer>
         </div>

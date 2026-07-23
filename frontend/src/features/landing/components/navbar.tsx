@@ -94,12 +94,7 @@ export function Navbar() {
             Showcase
           </Link>
 
-          <Link
-            href="#pricing"
-            className="text-sm font-medium transition hover:text-indigo-600"
-          >
-            Pricing
-          </Link>
+          
 
           <Link
             href="#faq"

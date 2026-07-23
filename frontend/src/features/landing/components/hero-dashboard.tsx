@@ -30,79 +30,8 @@ export function HeroDashboard() {
   }}
 >
 
-    <motion.div
-  initial={{ opacity: 0 }}
-  animate={{
-    opacity: 1,
-    y: [0, -12, 0],
-  }}
-  transition={{
-    delay: 0.4,
-    duration: 4,
-    repeat: Infinity,
-    ease: "easeInOut",
-  }}
-  className="
-    absolute
-    -left-10
-    top-24
-    rounded-3xl
-    border
-    border-white/40
-    bg-white/70
-    px-6
-    py-5
-    shadow-2xl
-    backdrop-blur-xl
-    dark:border-slate-700
-    dark:bg-slate-900/70
-  "
->
-  <p className="text-sm text-slate-500">
-    Time Saved
-  </p>
+    
 
-  <h3 className="mt-2 text-3xl font-bold">
-    6 hrs
-  </h3>
-</motion.div>
-
-<motion.div
-  initial={{ opacity: 0 }}
-  animate={{
-    opacity: 1,
-    y: [0, 12, 0],
-  }}
-  transition={{
-    delay: 0.8,
-    duration: 5,
-    repeat: Infinity,
-    ease: "easeInOut",
-  }}
-  className="
-    absolute
-    -right-10
-    bottom-20
-    rounded-3xl
-    border
-    border-white/40
-    bg-white/70
-    px-6
-    py-5
-    shadow-2xl
-    backdrop-blur-xl
-    dark:border-slate-700
-    dark:bg-slate-900/70
-  "
->
-  <p className="text-sm text-slate-500">
-    AI Score
-  </p>
-
-  <h3 className="mt-2 text-3xl font-bold text-green-600">
-    97%
-  </h3>
-</motion.div>
       <div
         className="
           rounded-[32px]
