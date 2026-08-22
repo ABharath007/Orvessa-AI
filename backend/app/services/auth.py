@@ -8,6 +8,11 @@ from app.core.security import (
     hash_token,
     verify_password,
 )
+from app.core.exceptions import (
+    UserAlreadyExistsError,
+    InvalidCredentialsError,
+    InactiveUserError,
+)
 from app.models.user import User
 from app.repositories.user import UserRepository
 from app.schemas.user import UserCreate, UserResponse, LoginRequest
@@ -35,7 +40,7 @@ class AuthService:
             existing_user = self.user_repository.get_by_email(data.email)
 
             if existing_user:
-                raise ValueError("Email already registered")
+                raise UserAlreadyExistsError()
 
             hashed_password = hash_password(data.password)
 
@@ -80,35 +85,38 @@ class AuthService:
             user = self.user_repository.get_by_email(data.email)
 
             if not user:
-                raise ValueError("Invalid email or password")
+                raise InvalidCredentialsError()
 
             if not verify_password(data.password, user.hashed_password):
-                raise ValueError("Invalid email or password")
+                raise InvalidCredentialsError()
 
             if not user.is_active:
-                raise ValueError("User account is inactive")
+                raise InactiveUserError()
 
             expires_at = get_refresh_token_expiry()
 
             access_token = create_access_token(str(user.id))
 
             refresh_token = create_refresh_token(
-            str(user.id),
-            expires_at,)
+                                str(user.id),
+                                expires_at,
+                            )
 
             refresh_token_record = RefreshToken(
-            user_id=user.id,
-            token_hash=hash_token(refresh_token),
-            expires_at=expires_at,)
+                user_id=user.id,
+                token_hash=hash_token(refresh_token),
+                expires_at=expires_at,
+            )
 
             self.refresh_token_repository.create(refresh_token_record)
 
             self.db.commit()
 
             return AuthResult(
-            user=UserResponse.model_validate(user),
-            access_token=access_token,
-            refresh_token=refresh_token,)
+                user=UserResponse.model_validate(user),
+                access_token=access_token,
+                refresh_token=refresh_token,
+            )
 
         except Exception:
             self.db.rollback()

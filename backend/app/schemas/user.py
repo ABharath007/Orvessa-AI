@@ -23,5 +23,20 @@ class LoginRequest(BaseModel):
     email: EmailStr
     password: str
     
-class AuthResponse(BaseModel):
+class AuthData(BaseModel):
     user: UserResponse
+
+
+class AuthResponse(BaseModel):
+    success: bool = True
+    message: str
+    data: AuthData
+    
+class UserData(BaseModel):
+    user: UserResponse
+
+
+class ProfileResponse(BaseModel):
+    success: bool = True
+    message: str
+    data: UserData

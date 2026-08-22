@@ -1,4 +1,4 @@
-import uuid
+from uuid import UUID
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
@@ -21,10 +21,9 @@ class UserRepository:
 
         return user
         
-    def get_by_id(self, user_id: uuid.UUID) -> User | None:
-        statement = select(User).where(User.id == user_id)
-
-        return self.db.scalar(statement)
+    def get_by_id(self, user_id: UUID) -> User | None:
+            statement = select(User).where(User.id == user_id)
+            return self.db.scalar(statement)
     
     def update(self, user: User) -> User:
         try:
@@ -42,3 +41,5 @@ class UserRepository:
         except Exception:
             self.db.rollback()
             raise
+        
+    

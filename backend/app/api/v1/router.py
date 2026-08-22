@@ -1,6 +1,6 @@
 from fastapi import APIRouter
 
-# from app.api.v1.auth.router import router as auth_router
+from app.api.v1.auth.router import router as auth_router
 # from app.api.v1.dashboard.router import router as dashboard_router
 # from app.api.v1.designers.router import router as designers_router
 # from app.api.v1.designs.router import router as designs_router
@@ -19,7 +19,7 @@ from fastapi import APIRouter
 
 api_router = APIRouter()
 
-# api_router.include_router(auth_router, prefix="/auth", tags=["Authentication"])
+api_router.include_router(auth_router, prefix="/auth", tags=["Authentication"])
 # api_router.include_router(dashboard_router, prefix="/dashboard", tags=["Dashboard"])
 # api_router.include_router(designers_router, prefix="/designers", tags=["Designers"])
 # api_router.include_router(designs_router, prefix="/designs", tags=["Designs"])
