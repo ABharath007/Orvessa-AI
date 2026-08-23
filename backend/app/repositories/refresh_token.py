@@ -21,5 +21,15 @@ class RefreshTokenRepository:
         self.db.flush()
 
         return refresh_token
-        
+    
+    def revoke(self, refresh_token: RefreshToken) -> RefreshToken:
+        try:
+            refresh_token.revoked = True
+            self.db.commit()
+            self.db.refresh(refresh_token)
+
+            return refresh_token
+        except Exception:
+            self.db.rollback()
+            raise
     

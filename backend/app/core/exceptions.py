@@ -11,6 +11,7 @@ class AppException(Exception):
 
         super().__init__(message)
 
+
 class UserAlreadyExistsError(AppException):
     def __init__(self):
         super().__init__(
@@ -36,6 +37,7 @@ class InactiveUserError(AppException):
             error_code="USER_INACTIVE",
             status_code=403,
         )
+       
         
 class AuthenticationRequiredError(AppException):
     def __init__(self):
@@ -60,5 +62,23 @@ class UserNotFoundError(AppException):
         super().__init__(
             message="User not found",
             error_code="USER_NOT_FOUND",
+            status_code=401,
+        )
+
+
+class InvalidRefreshTokenError(AppException):
+    def __init__(self):
+        super().__init__(
+            message="Invalid refresh token",
+            error_code="INVALID_REFRESH_TOKEN",
+            status_code=401,
+        )
+
+
+class RefreshTokenRevokedError(AppException):
+    def __init__(self):
+        super().__init__(
+            message="Refresh token has been revoked",
+            error_code="REFRESH_TOKEN_REVOKED",
             status_code=401,
         )
